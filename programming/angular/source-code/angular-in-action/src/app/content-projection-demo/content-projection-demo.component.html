@@ -1,0 +1,16 @@
+<p>content-projection-demo works!</p>
+<p>table example</p>
+
+<table app-table>
+    <tr app-table-row *ngFor="let item of data" [item]="item"></tr>
+</table>
+
+<p>name card example</p>
+
+<app-name-card>
+    <name>Nhan Nguyen</name>
+    <position>Leader</position>
+</app-name-card>
+
+
+

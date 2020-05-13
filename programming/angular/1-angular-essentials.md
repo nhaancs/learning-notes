@@ -65,15 +65,17 @@ Alternatively, you could use the @Inject decorator to inject the HttpClient, lik
 ## V. Change detection
 
 Mechanism for keeping data and the rerendered views in sync with one another. If parent component has changed, its children are also be checked.
-
 Angular run a change detection process to check whether values have changed since the last time the process ran.
+Change detection is triggered by either events, receiving HTTP response, or timers/intervals (asynchronous calls).
 
 Angular has two ways for changes to be triggered:
 
 - The Default mode will traverse the entire tree looking for changes with change detection process.
 - The OnPush mode tell Angular that the component only cares about changes to any values that are input into the component from its parent, and give Angular the ability to skip checking the component during change detection if it already knows the parent hasn't changed.
 
-Change detection is triggered by either events, receiving HTTP response, or timers/intervals (asynchronous calls).
+TODO: 
+Research more about OnPush mode. What happen if input is a primitive types vs an object?
+- Change detection check the values of primitive type inputs, check the references of object inputs.
 
 ## VI. Template expressions and bindings
 
@@ -104,6 +106,22 @@ There aren’t many attributes that aren’t also properties, but if you come ac
 `<input [attr.aria-required]="isRequired()" />`
 
 `aria-required="{{isRequired()}}"` or `[aria-required]="isRequired()"` will cause template parsing error.
+
+TODO: what is the differences between attributes and properties of an element in DOM?
+- DOM is a model of a document with an associated API for manipulating it.
+- HTML is a markup language that lets you represent a certain kind of DOM in text.
+- Attributes are defined by HTML. 
+- Properties are defined by the DOM (Document Object Model).
+- A few HTML attributes have 1:1 mapping to properties. id is one example.
+- Some HTML attributes don't have corresponding properties. colspan is one example.
+- Some DOM properties don't have corresponding attributes. textContent is one example.
+- Many HTML attributes appear to map to properties ... but not in the way you might think!
+
+That last category is confusing until you grasp this general rule:
+- Attributes initialize DOM properties and then they are done. Property values can change; attribute values can't.
+For example, when the browser renders <input type="text" value="Bob">, it creates a corresponding DOM node with a value property initialized to "Bob".
+When the user enters "Sally" into the input box, the DOM element value property becomes "Sally". But the HTML value attribute remains unchanged as you discover if you ask the input element about that attribute: input.getAttribute('value') returns "Bob".
+The HTML attribute value specifies the initial value; the DOM value property is the current value.
 
 ### 5. Event bidings
 
